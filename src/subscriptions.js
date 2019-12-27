@@ -1,20 +1,29 @@
-const {  } = require('@postilion/models');
-const { Events, Operation } = require('@postilion/events');
+const { Taxonomy } = require('@postilion/models');
+const { Operation } = require('@postilion/events');
+
+const TaxonomyManager = require('./managers/taxonomy-manager');
+const taxonomyManager = new TaxonomyManager();
 
 module.exports = [
-	// {
-    //     // get all filing documents associated with a new filing
-    //     name: 'GetFilingDocumentsForFiling',
-    //     model: models.Filing,
-    //     operation: Operation.create,
-    //     handler: filingManager.getDocumentsForFiling,
-    //     filters: [
-    //         {
-    //             $match: {
-    //                 status: 'unseeded'
-    //             }
-    //         }
-    //     ],
-    //     options: {}
-    // },
+    {
+        name: 'GetTaxonomyFileList',
+        model: Taxonomy,
+        operation: Operation.create,
+        handler: taxonomyManager.getTaxonomyFileList,
+    },
+	{
+        // get all filing documents associated with a new filing
+        name: 'CreateTaxonomyTreeFromXlsx',
+        model: Taxonomy,
+        operation: Operation.create,
+        handler: taxonomyManager.createTaxonomyTreeFromXlsx,
+        filters: [
+            {
+                $match: {
+                    type: 'xlsx'
+                }
+            }
+        ],
+        options: {}
+    },
 ]

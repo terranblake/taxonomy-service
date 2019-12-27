@@ -13,6 +13,7 @@
     "@postilion/events": "github:terranblake/events#master",
     "@postilion/models": "github:terranblake/models#master",
     "@postilion/storage": "github:terranblake/storage",
-    "@postilion/utils": "github:terranblake/utils#master"
+    "@postilion/utils": "github:terranblake/utils#master",
+    "xlsx": "^0.15.4"
   }
 }
