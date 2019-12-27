@@ -1,0 +1,18 @@
+{
+  "name": "@postilion/taxonomy-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@postilion/events": "github:terranblake/events#master",
+    "@postilion/models": "github:terranblake/models#master",
+    "@postilion/storage": "github:terranblake/storage",
+    "@postilion/utils": "github:terranblake/utils#master"
+  }
+}
