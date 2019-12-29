@@ -6,7 +6,7 @@ const taxonomyManager = new TaxonomyManager();
 
 module.exports = [
     {
-        name: 'GetTaxonomyFileList',
+        name: 'TaxonomyCreated_UrlFormat',
         model: Taxonomy,
         operation: Operation.create,
         handler: taxonomyManager.getTaxonomyFileList,
@@ -19,7 +19,7 @@ module.exports = [
         // todo: once the url and xml format type parsers are complete
         // this should be deprecated entirely because of how long it takes
         // to process and simply how bulky the files are to fetch/download
-        name: 'CreateTaxonomyTreeFromXlsx',
+        name: 'TaxonomyCreated_XlsxFormat',
         model: Taxonomy,
         operation: Operation.create,
         handler: taxonomyManager.createTaxonomyTreeFromXlsx,
