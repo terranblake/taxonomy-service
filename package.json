@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@postilion/events": "github:terranblake/events#master",
+    "@postilion/pubsub": "github:terranblake/pubsub#master",
     "@postilion/models": "github:terranblake/models#master",
     "@postilion/storage": "github:terranblake/storage",
     "@postilion/utils": "github:terranblake/utils#master",

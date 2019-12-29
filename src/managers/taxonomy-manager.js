@@ -11,7 +11,7 @@ class TaxonomyManager {
 	// much smaller and easier to move around. this will speed
 	// up the tree creation process without the need to load
 	// an entire 5-10mb xlsx to rebuild the tree
-	getTaxonomyFileList() {
+	async getTaxonomyFileList() {
 		// tell metadata service to fetch file list from
 		// http://xbrl.fasb.org/us-gaap/2019/USGAAP20190131FileList.xml
 		
@@ -24,7 +24,7 @@ class TaxonomyManager {
 		// print(dfs[0])
 	}
 
-	createTaxonomyTreeFromXlsx(job) {
+	async createTaxonomyTreeFromXlsx(job) {
 		const { location, year } = job.data;
 		
 		const formattedIdentifiers = getIdentifiersFromXlsx(undefined, location, version);

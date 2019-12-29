@@ -1,5 +1,5 @@
 const { Taxonomy } = require('@postilion/models');
-const { Operation } = require('@postilion/events');
+const { Operation } = require('@postilion/pubsub');
 
 const TaxonomyManager = require('./managers/taxonomy-manager');
 const taxonomyManager = new TaxonomyManager();

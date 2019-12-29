@@ -1,6 +1,5 @@
-const { Events } = require('@postilion/events');
-
+const { PubSub } = require('@postilion/pubsub');
 const subscriptions = require('./subscriptions');
 
-const events = new Events(subscriptions);
-module.exports = events;
+const pubsub = new PubSub(subscriptions);
+module.exports = pubsub;
