@@ -10,9 +10,15 @@ module.exports = [
         model: Taxonomy,
         operation: Operation.create,
         handler: taxonomyManager.getTaxonomyFileList,
+        filters: [],
+        options: {}
     },
 	{
-        // get all filing documents associated with a new filing
+        // if a new taxonomy is created which has a supported xlsx
+        // format, then we should try to format it.
+        // todo: once the url and xml format type parsers are complete
+        // this should be deprecated entirely because of how long it takes
+        // to process and simply how bulky the files are to fetch/download
         name: 'CreateTaxonomyTreeFromXlsx',
         model: Taxonomy,
         operation: Operation.create,
@@ -20,7 +26,11 @@ module.exports = [
         filters: [
             {
                 $match: {
-                    type: 'xlsx'
+                    formats: {
+                        $elemMatch: {
+                            type: 'xlsx'
+                        }
+                    }
                 }
             }
         ],

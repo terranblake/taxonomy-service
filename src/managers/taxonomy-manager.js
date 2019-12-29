@@ -1,4 +1,5 @@
-const { createFromUnsortedList } = require('../utils/tree-creation-helper');
+const { Identifier } = require('@postilion/models');
+const { logger } = require('@postilion/utils');
 
 const WorkbookManager = require('./workbook-manager');
 const { getIdentifiersFromXlsx } = new WorkbookManager();
@@ -25,10 +26,19 @@ class TaxonomyManager {
 	}
 
 	async createTaxonomyTreeFromXlsx(job) {
-		const { location, year } = job.data;
+		const { year: version } = job.data;
+
+		// todo: remove in favor of downloading from source
+		let tempLocation = `${process.cwd()}/data/US_GAAP_Taxonomy_${version.toString()}.xlsx`;
+		const formattedIdentifiers = getIdentifiersFromXlsx('calculation', tempLocation, job.data);
 		
-		const formattedIdentifiers = getIdentifiersFromXlsx(undefined, location, version);
-		await createFromUnsortedList(formattedIdentifiers, version);
+		logger.info(`formatted raw identifiers from xlsx ${tempLocation}`);
+
+		for (let identifier of formattedIdentifiers) {
+			await Identifier.create(identifier);
+		}
+
+		logger.info(`created identifiers from xlsx ${tempLocation}`);
 	}
 }
 

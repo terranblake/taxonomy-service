@@ -14,7 +14,7 @@ const extractDefitionObjectFromString = (definition) => {
     };
 }
 
-const inlineRoleNameVariant = (unformattedIdentifiers, documentType, version) => {
+const inlineRoleNameVariant = (unformattedIdentifiers, documentType, taxonomy) => {
     return map(unformattedIdentifiers, (identifier) => {
         switch (documentType) {
             case 'calculation':
@@ -22,8 +22,14 @@ const inlineRoleNameVariant = (unformattedIdentifiers, documentType, version) =>
                 const [type, name] = extendedLinkRole.split('/').slice(-2);
                 const { id } = extractDefitionObjectFromString(identifier.definition);
 
+                if (identifier.parent) {
+                    identifier.parent = identifier.parent.split(':').pop();
+                }
+
                 return {
                     ...identifier,
+                    taxonomy: taxonomy._id,
+                    version: taxonomy.year,
                     documentType,
                     extendedLinkRole,
                     itemType: identifier['item type'] || 'monetaryItemType',
@@ -32,19 +38,18 @@ const inlineRoleNameVariant = (unformattedIdentifiers, documentType, version) =>
                         name,
                         id
                     },
-                    version,
                 }
             case 'elements':
             case 'schema':
             case 'presentation':
             case 'label':
             default:
-                throw new Error(`the identifier from linkbase type ${documentType} is not supported for version ${version}`);
+                throw new Error(`the identifier from linkbase type ${documentType} is not supported for version ${taxonomy.version}`);
         }
     });
 }
 
-const unmappedRoleNameVariant = (unformattedIdentifiers, documentType, version) => {
+const unmappedRoleNameVariant = (unformattedIdentifiers, documentType, taxonomy) => {
     let roleType, roleName, roleId, extendedLinkRole, definition;
 
     return map(unformattedIdentifiers, (identifier) => {
@@ -71,8 +76,14 @@ const unmappedRoleNameVariant = (unformattedIdentifiers, documentType, version) 
 
         switch (documentType) {
             case 'calculation':
+                if (identifier.parent) {
+                    identifier.parent = identifier.parent.split(':').pop();
+                }
+
                 return {
                     ...identifier,
+                    taxonomy: taxonomy._id,
+                    version: taxonomy.year,
                     documentType,
                     definition,
                     extendedLinkRole,
@@ -81,19 +92,18 @@ const unmappedRoleNameVariant = (unformattedIdentifiers, documentType, version) 
                         name: roleName,
                         id: roleId
                     },
-                    version,
                 }
             case 'elements':
             case 'schema':
             case 'presentation':
             case 'label':
             default:
-                throw new Error(`the identifier from linkbase type ${documentType} is not supported for version ${version}`);
+                throw new Error(`the identifier from linkbase type ${documentType} is not supported for version ${taxonomy.version}`);
         }
     });
 }
 
-const mappedRoleNameVariant = (unformattedIdentifiers, documentType, version) => {
+const mappedRoleNameVariant = (unformattedIdentifiers, documentType, taxonomy) => {
     let roleType, roleName, roleId, extendedLinkRole, definition;
 
     const identifierFields = Object.keys(Identifier.schema.obj);
@@ -145,6 +155,8 @@ const mappedRoleNameVariant = (unformattedIdentifiers, documentType, version) =>
                 }, {
                     documentType,
                     definition,
+                    taxonomy: taxonomy._id,
+                    version: taxonomy.year,
                     extendedLinkRole,
                     role: {
                         name: roleName,
@@ -157,7 +169,7 @@ const mappedRoleNameVariant = (unformattedIdentifiers, documentType, version) =>
             case 'presentation':
             case 'label':
             default:
-                throw new Error(`the identifier from linkbase type ${documentType} is not supported for version ${version}`);
+                throw new Error(`the identifier from linkbase type ${documentType} is not supported for version ${taxonomy.version}`);
         }
     });
 }
