@@ -14,7 +14,7 @@
   "dependencies": {
     "@postilion/pubsub": "github:terranblake/pubsub#master",
     "@postilion/models": "github:terranblake/models#master",
-    "@postilion/storage": "github:terranblake/storage",
+    "@postilion/storage": "github:terranblake/storage#master",
     "@postilion/utils": "github:terranblake/utils#master",
     "xlsx": "^0.15.4"
   }
