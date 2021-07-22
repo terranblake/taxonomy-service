@@ -16,6 +16,6 @@
     "@postilion/models": "github:terranblake/models#master",
     "@postilion/stores": "github:terranblake/stores#master",
     "@postilion/utils": "github:terranblake/utils#master",
-    "xlsx": "^0.15.4"
+    "xlsx": "^0.17.0"
   }
 }
